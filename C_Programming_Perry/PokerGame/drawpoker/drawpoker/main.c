@@ -19,20 +19,38 @@
 #include <time.h>
 #include <stdbool.h>
 
+#define COUNT 5
+#define RANKS 13
+#define SUITS 4
+
 // Prototypes
 void printGreeting(void);
-int getBet(void);
+int  getBet(void);
 char getSuit(int suit);
 char getRank(int rank);
 void getFirstHand(int cardRank[], int cardSuit[]);
 void gerFinalHand(int cardRank[], int cardSuit[], int finalRank[],
                   int finalSuit[], int ranksInHand[], int suitsInHand[]);
 
-int analyzeHand(int ranksInHand[], int ranksInSuit[]);
+int  analyzeHand(int ranksInHand[], int ranksInSuit[]);
 
 int main(int argc, const char * argv[]) {
     
+    int bet;
+    int bank = 100;
+    int i;
+    int cardRank[COUNT]; // one of thirteen values (Aces-King)
+    int cardSuit[COUNT]; // one of four values (Clubs, Diamonds, Hearts, Spades)
     
+    int finalRank[COUNT];
+    int finalSuit[COUNT];
+    int ranksInHand[RANKS]; // used to evaluate the final hand
+    int suitsInHand[SUITS]; // used to evaluate the final hand
+    
+    int winnings;
+    time_t t;
+    
+    char suit, rank, playAgain; // stillPlay
     
     return 0;
 }
