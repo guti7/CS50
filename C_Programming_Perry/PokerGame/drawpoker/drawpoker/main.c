@@ -34,6 +34,7 @@ void gerFinalHand(int cardRank[], int cardSuit[], int finalRank[],
                   int finalSuit[], int ranksInHand[], int suitsInHand[]);
 
 int  analyzeHand(int ranksInHand[], int ranksInSuit[]);
+void printHand(int cardRank[], int cardSuit[]);
 
 int main(int argc, const char * argv[]) {
     
@@ -64,10 +65,14 @@ int main(int argc, const char * argv[]) {
     {
         bet = getBet();
         
+        srand((uint)time(&t));
+        getFirstHand(cardRank, cardSuit);
+        
     } while (toupper(playAgain) == 'Y');
     
-    // TODO: TEST `bet`
-    printf("user bet: %d\n", bet);
+    // TODO: TEST `bet`, random first hand
+    printf("\nTest bet: %d\n", bet);
+    printHand(cardRank, cardSuit);
     
     return 0;
 }
@@ -127,8 +132,44 @@ int getBet(void)
     return bet;
 }
 
+// Deal the first five cards
+void getFirstHand(int cardRank[], int cardSuit[])
+{
+    int i, j;
+    int duplicate;
+    
+    for (i = 0; i < COUNT; i++)
+    {
+        duplicate = 0; // found a duplicate card
+        do
+        {
+            // get a card (random rank and suit)
+            cardRank[i] = rand() % RANKS; // (0 - 12) -> (2-10, J, Q, K, A)
+            cardSuit[i] = rand() % SUITS; // (0 - 3)  -> (♢, ♡, ♧, ♤)
+            
+            // Check if drawn random card is already in hand
+            for (j = 0; j < i; j++)
+            {
+                if (cardRank[i] == cardRank[j] && cardSuit[i] == cardSuit[j])
+                {
+                    duplicate = 1;
+                }
+            }
+            
+        } while(duplicate);
+    }
+}
 
-
+// Print hand
+void printHand(int ranks[], int suits[])
+{
+    printf("\nTEst random first hand:\n");
+    for(int i = 0; i < COUNT; i++)
+    {
+        printf("card #%d:\tr: %2d, s: %2d\n", i + 1, ranks[i], suits[i]);
+    }
+    printf("\n");
+}
 
 
 
