@@ -56,6 +56,19 @@ int main(int argc, const char * argv[]) {
     // Start the game
     printGreeting();
     
+    // TODO: TEST `playAgain`
+    playAgain = 'N';
+    
+    // Play a round
+    do
+    {
+        bet = getBet();
+        
+    } while (toupper(playAgain) == 'Y');
+    
+    // TODO: TEST `bet`
+    printf("user bet: %d\n", bet);
+    
     return 0;
 }
 
@@ -84,7 +97,35 @@ void printGreeting(void)
     printf("¡Éntrale!\n\n");
 }
 
-
+// Get the user's bet between 1 and 5
+int getBet(void)
+{
+    int bet;
+    
+    // valid input [0,5]
+    do
+    {
+        printf("Bet?\n");
+        printf("Enter 0 to give up: ");
+        scanf(" %d", &bet);
+        
+        if (bet >= 1 && bet <= 5)
+        {
+            break;
+        }
+        else if (bet == 0)
+        {
+            printf("Come back when you can handle the pressure\n");
+            exit(1);
+        }
+        else
+        {
+            printf("\n**** Only bet 1-5 or give up! ****\n\n");
+        }
+    } while ( (bet < 0) || (bet > 5));
+    
+    return bet;
+}
 
 
 
