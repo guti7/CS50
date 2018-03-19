@@ -67,11 +67,14 @@ int main(int argc, const char * argv[]) {
         
         srand((uint)time(&t));
         getFirstHand(cardRank, cardSuit);
+        printHand(cardRank, cardSuit);
+        
         
     } while (toupper(playAgain) == 'Y');
     
     // TODO: TEST `bet`, random first hand
     printf("\nTest bet: %d\n", bet);
+    printf("\nTEst random first hand:\n");
     printHand(cardRank, cardSuit);
     
     return 0;
@@ -163,14 +166,75 @@ void getFirstHand(int cardRank[], int cardSuit[])
 // Print hand
 void printHand(int ranks[], int suits[])
 {
-    printf("\nTEst random first hand:\n");
+    printf("Your hand:\n");
     for(int i = 0; i < COUNT; i++)
     {
-        printf("card #%d:\tr: %2d, s: %2d\n", i + 1, ranks[i], suits[i]);
+        char suit = getSuit(suits[i]);
+        char rank = getRank(ranks[i]);
+        printf("card #%d: %c%c\n", i + 1, rank, suit);
     }
     printf("\n");
 }
 
+char getSuit(int suit)
+{
+    char s;
+    switch(suit)
+    {
+        case 0:
+            s = 'C'; // Clubs
+            break;
+        case 1:
+            s = 'D'; // Diamonds
+            break;
+        case 2:
+            s = 'H'; // Hearts
+            break;
+        case 3:
+            s = 'S'; // Spades
+            break;
+        default:
+            s = 0; // Invalid
+            break;
+    }
+    return s;
+}
+char getRank(int rank)
+{
+    char r;
+    switch(rank)
+    {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+            r = (rank + 1) + '0'; // convert to ASCII value from integer value
+            break;
+        case 9:
+            r = 'T'; // Ten(10)
+            break;
+        case 10:
+            r = 'J'; // Jack
+            break;
+        case 11:
+            r = 'Q'; // Queen
+            break;
+        case 12:
+            r = 'K'; // King
+            break;
+        case 0:
+            r = 'A'; // Ace
+            break;
+        default:
+            r = 0; // Invalid
+            break;
+    }
+    return r;
+}
 
 
 
