@@ -22,6 +22,7 @@
 #define COUNT 5
 #define RANKS 13
 #define SUITS 4
+#define CREDITS 100
 
 // Prototypes
 void printGreeting(void);
@@ -37,7 +38,7 @@ int  analyzeHand(int ranksInHand[], int ranksInSuit[]);
 int main(int argc, const char * argv[]) {
     
     int bet;
-    int bank = 100;
+    int bank = CREDITS;
     int i;
     int cardRank[COUNT]; // one of thirteen values (Aces-King)
     int cardSuit[COUNT]; // one of four values (Clubs, Diamonds, Hearts, Spades)
@@ -52,5 +53,62 @@ int main(int argc, const char * argv[]) {
     
     char suit, rank, playAgain; // stillPlay
     
+    // Start the game
+    printGreeting();
+    
     return 0;
 }
+
+// Game greeting and introduction
+void printGreeting(void)
+{
+    printf("********************************************************\n");
+    printf("\n\tWelcome to Clandestino\n");
+    printf("\t\tSwift Draw Poker\n\n");
+    printf("********************************************************\n");
+    
+    printf("Pay attention:\n");
+    printf("Tienes %d créditos, apuesta de 1 a 5.\n", CREDITS);
+    printf("Recibes 5 naipes\n");
+    printf("Escoge sabiamente cual guardar y cual cambiar.\n");
+    printf("¿Listo para la Ganancia?\n");
+    printf("Apuestas 1 crédito\n");
+    printf("Par\t\t\t\t\t 1\n");
+    printf("Dos Pares\t\t\t 2\n");
+    printf("Tres Unicos\t\t\t 3\n");
+    printf("Regla\t\t\t\t 4\n");
+    printf("Solido\t\t\t\t 5\n");
+    printf("La Casa\t\t\t\t 8\n");
+    printf("Cuatro\t\t\t\t10\n");
+    printf("Regla Solida\t\t20\n");
+    printf("¡Éntrale!\n\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
