@@ -57,9 +57,6 @@ int main(int argc, const char * argv[]) {
     // Start the game
     printGreeting();
     
-    // TODO: TEST `playAgain`
-    playAgain = 'N';
-    
     // Play a round
     do
     {
@@ -67,7 +64,7 @@ int main(int argc, const char * argv[]) {
         
         srand((uint)time(&t));
         getFirstHand(cardRank, cardSuit);
-        printf("\n ** First hand ** \n");
+        printf("\n    * First hand *\n");
         printHand(cardRank, cardSuit);
         
         // // TODO: move Clear up previous hand values to functions
@@ -84,8 +81,20 @@ int main(int argc, const char * argv[]) {
         
         // finalize hand
         getFinalHand(cardRank, cardSuit, finalRank, finalSuit, ranksInHand, suitsInHand);
-        printf("\n*** Final hand ***\n");
+        printf("\n   *** Final hand ***\n");
         printHand(finalRank, finalSuit);
+        
+        // Winnings
+        winnings = analyzeHand(ranksInHand, suitsInHand);
+        printf("  **** ¡Vencedor de a %d! ****\n", bet * winnings);
+        
+        bank = bank - bet + (bet * winnings);
+        printf("\n ***** Banco: $%d *****\n", bank);
+        
+        // Play Again?
+        printf("\n\tDoble o Rajas? ");
+        scanf(" %c", &playAgain);
+        getchar();
         
     } while (toupper(playAgain) == 'Y');
     
@@ -143,7 +152,7 @@ int getBet(void)
             printf("\n**** Only bet 1-5 or give up! ****\n\n");
         }
     } while ( (bet < 0) || (bet > 5));
-    getchar(); // clear newline
+    getchar(); // clear last newline
     return bet;
 }
 
@@ -258,6 +267,7 @@ void getFinalHand(int ranks[], int suits[], int finalRanks[],
     int i, j, duplicate;
     char suit, rank, answer;
     
+    printf("   ** Doubts **\n");
     for (i = 0; i < COUNT; i++)
     {
         suit = getSuit(suits[i]);
@@ -278,10 +288,10 @@ void getFinalHand(int ranks[], int suits[], int finalRanks[],
         else if (toupper(answer) == 'N')
         {
             // get a replacement card
-//            duplicate = 0;
+            duplicate = 0; // clear for every new round
             do
             {
-                duplicate = 0;
+                duplicate = 0; // clear for every new draw
                 finalRanks[i] = rand() % RANKS;
                 finalSuits[i] = rand() % SUITS;
                 
@@ -315,6 +325,11 @@ void getFinalHand(int ranks[], int suits[], int finalRanks[],
     }
 }
 
+// Determines the value of the final hand to report winnings
+int analyzeHand(int ranks[], int suits[])
+{
+    return 1;
+}
 
 
 
