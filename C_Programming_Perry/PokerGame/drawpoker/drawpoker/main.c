@@ -37,7 +37,7 @@ int  analyzeHand(int ranksInHand[], int ranksInSuit[]);
 void printHand(int * ranks, int * suits); // void printHand(struct * hand)
 void startNewRound(int * ranks, int * suits);
 int getRandomValueFrom(int);
-bool isCardDuplicate(int * ranks, int * suits, int cardIndex);
+bool isCardDuplicate(int index, int * ranks, int * suits, int * discardRanks, int * discardSuits);
 void drawCard(int index, int * ranks, int * suits);
 
 int main(int argc, const char * argv[]) {
@@ -97,7 +97,7 @@ int main(int argc, const char * argv[]) {
         
     } while (toupper(playAgain) == 'Y');
     
-    printf("😭 None of that now.\n");
+    printf("None of that 😭 now.\n");
     
     return 0;
 }
@@ -191,7 +191,7 @@ void drawCard(int index, int * ranks, int * suits)
         ranks[index] = getRandomValueFrom(RANKS); // (0 - 12) -> (2-10, J, Q, K, A)
         suits[index] = getRandomValueFrom(SUITS); // (0 - 3)  -> (♧, ♢, ♡, ♤)
         
-    } while(isCardDuplicate(ranks, suits, index));
+    } while(isCardDuplicate(index, ranks, suits, ranks, suits));
 }
 
 // Returns a random value from 0 up to one less the range
@@ -200,11 +200,13 @@ int getRandomValueFrom(int range) {
 }
 
 // Checks for duplicates of the current drawn card
-bool isCardDuplicate(int * cardRanks, int * cardSuits, int cardIndex) {
+bool isCardDuplicate(int index, int * cardRanks, int * cardSuits, int * discardRanks, int * discardSuits) {
     int j;
-    for (j = 0; j < cardIndex; j++)
+    // adjust the bound of the loop according to cards being compared
+    int bound = cardRanks == discardRanks ? index : COUNT;
+    for (j = 0; j < bound; j++)
     {
-        if (cardRanks[cardIndex] == cardRanks[j] && cardSuits[cardIndex] == cardSuits[j])
+        if (cardRanks[index] == discardRanks[j] && cardSuits[index] == discardSuits[j])
         {
             return true;
         }
@@ -295,64 +297,47 @@ char getRank(int rank)
 void getFinalHand(int ranks[], int suits[], int finalRanks[],
                   int finalSuits[], int ranksInHand[], int suitsInHand[])
 {
-    int i, j, duplicate;
+    int i;
+    bool duplicate;
     char suit, rank, answer;
     
     printf("   ** Doubts **\n");
+    printf("Choose what card to replace: (Y/N)\n");
     for (i = 0; i < COUNT; i++)
     {
         suit = getSuit(suits[i]);
         rank = getRank(ranks[i]);
         
-        printf("Keep card #%d: %c%c? (Y/N) ", i + 1, rank, suit);
+        printf("#%d: %c%c ", i + 1, rank, suit);
         scanf(" %c", &answer);
         
-        if (toupper(answer) == 'Y')
+        if (toupper(answer) == 'N')
         {
             finalRanks[i] = ranks[i];
             finalSuits[i] = suits[i];
-            // Keep track of the value cards in final hand
-            ranksInHand[finalRanks[i]]++;
-            suitsInHand[finalSuits[i]]++;
-            continue; // does it do anything special?
         }
-        else if (toupper(answer) == 'N')
+        else if (toupper(answer) == 'Y')
         {
             // get a replacement card
-            duplicate = 0; // clear for every new round
+            duplicate = false; // clear for every new round
             do
             {
-                duplicate = 0; // clear for every new draw
-                finalRanks[i] = rand() % RANKS;
-                finalSuits[i] = rand() % SUITS;
+                duplicate = false; // clear for every new draw
+                finalRanks[i] = getRandomValueFrom(RANKS);
+                finalSuits[i] = getRandomValueFrom(SUITS);
                 
                 // Check drawn card for duplicates in hand
-                for (j = 0; j < COUNT; j++)
-                {
-                    if (finalRanks[i] == ranks[j] && finalSuits[i] == suits[j])
-                    {
-                        duplicate = 1;
-                        break;
-                    }
-                }
+                duplicate = isCardDuplicate(i, finalRanks, finalSuits, ranks, suits);
                 
                 // Check for duplicates for newly drawn cards (if any)
                 if (!duplicate) { // if duplicate hasn't been found yet
-                    for (j = 0; j < i; j++)
-                    {
-                        if(finalRanks[i] == finalRanks[j] && finalSuits[i] == finalSuits[j])
-                        {
-                            duplicate = 1;
-                        }
-                    }
+                    duplicate = isCardDuplicate(i, finalRanks, finalSuits, finalRanks, finalSuits);
                 }
-            
             } while (duplicate);
-            
-            // Update final values in for final hand
-            ranksInHand[finalRanks[i]]++;
-            suitsInHand[finalSuits[i]]++;
         }
+        // Update final values in for final hand
+        ranksInHand[finalRanks[i]]++;
+        suitsInHand[finalSuits[i]]++;
     }
 }
 
