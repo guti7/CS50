@@ -35,24 +35,24 @@ void getFinalHand(int cardRank[], int cardSuit[], int finalRank[],
 
 int  analyzeHand(int ranksInHand[], int ranksInSuit[]);
 void printHand(int cardRank[], int cardSuit[]);
+void startNewRound(int * ranks, int * suits);
 
 int main(int argc, const char * argv[]) {
     
     int bet;
     int bank = CREDITS;
-    int i;
     int cardRank[COUNT]; // one of thirteen values (Aces-King)
     int cardSuit[COUNT]; // one of four values (Clubs, Diamonds, Hearts, Spades)
     
     int finalRank[COUNT];
     int finalSuit[COUNT];
-    int ranksInHand[RANKS]; // used to evaluate the final hand
-    int suitsInHand[SUITS]; // used to evaluate the final hand
+    int ranksInHand[RANKS]; // used to evaluate winnings
+    int suitsInHand[SUITS]; // used to evaluate winnings
     
     int winnings;
     time_t t;
     
-    char suit, rank, playAgain; // stillPlay
+    char playAgain;
     
     // Start the game
     printGreeting();
@@ -60,24 +60,17 @@ int main(int argc, const char * argv[]) {
     // Play a round
     do
     {
+        
+        // Clear up previous round results
+        startNewRound(ranksInHand, suitsInHand);
+        
         bet = getBet();
         
-        srand((uint)time(&t));
+        srand((uint)time(&t)); // seed rand for each new round
         getFirstHand(cardRank, cardSuit);
         printf("\n    * First hand *\n");
         printHand(cardRank, cardSuit);
         
-        // // TODO: move Clear up previous hand values to functions
-        // clear suits
-        for (i = 0; i < SUITS; i++)
-        {
-            suitsInHand[i] = 0;
-        }
-        // clear ranks
-        for (i = 0; i < RANKS; i++)
-        {
-            ranksInHand[i] = 0;
-        }
         
         // finalize hand
         getFinalHand(cardRank, cardSuit, finalRank, finalSuit, ranksInHand, suitsInHand);
@@ -94,9 +87,10 @@ int main(int argc, const char * argv[]) {
         // Play Again?
         printf("\n\tDoble o Rajas? ");
         scanf(" %c", &playAgain);
-        getchar();
         
     } while (toupper(playAgain) == 'Y');
+    
+    printf("😭 None of that now.\n");
     
     return 0;
 }
@@ -125,7 +119,22 @@ void printGreeting(void)
     printf("Regla Solida\t\t20\n");
     printf("¡Éntrale!\n\n");
 }
-
+// Clear up the previous round hand values
+void startNewRound(int * ranks, int * suits) {
+    int i;
+    
+    // clear ranks
+    for (i = 0; i < RANKS; i++)
+    {
+        ranks[i] = 0;
+    }
+    
+    // clear suits
+    for (i = 0; i < SUITS; i++)
+    {
+        suits[i] = 0;
+    }
+}
 // Get the user's bet between 1 and 5
 int getBet(void)
 {
@@ -144,7 +153,7 @@ int getBet(void)
         }
         else if (bet == 0)
         {
-            printf("Come back when you can handle the pressure\n");
+            printf("Come back when you can handle the pressure 😎\n");
             exit(1);
         }
         else
@@ -152,7 +161,7 @@ int getBet(void)
             printf("\n**** Only bet 1-5 or give up! ****\n\n");
         }
     } while ( (bet < 0) || (bet > 5));
-    getchar(); // clear last newline
+    
     return bet;
 }
 
@@ -329,7 +338,7 @@ void getFinalHand(int ranks[], int suits[], int finalRanks[],
 int analyzeHand(int ranks[], int suits[])
 {
     int consecutive_num = 0;
-    int i, rank, suit;
+    int rank, suit;
     int straight = false;
     int flush = false;
     int four = false; // of a kind
@@ -377,7 +386,7 @@ int analyzeHand(int ranks[], int suits[])
         }
         if (ranks[rank] == 2)
         {
-            pairs++; // if
+            pairs++;
         }
         
     }
