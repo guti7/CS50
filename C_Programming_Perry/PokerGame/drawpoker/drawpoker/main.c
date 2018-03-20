@@ -9,8 +9,8 @@
 // Poker Program: Appendix B Absolute Beginner's Guide to C, 3rd Edition, Perry
 
 /*
- * Plays draw poker. User can play indefinitely, betting between 1 and 5.
- * They are dealt 5 cards and get to choose what to keep and what to replace,
+ * Plays draw poker. User can play indefinitely, bets are between 1 and 5.
+ * It deals 5 cards. User chooses what to keep and what to replace,
  * The new hand is reviewed and payout is given.
  */
 #include <stdlib.h>
@@ -29,30 +29,37 @@ void printGreeting(void);
 int  getBet(void);
 char getSuit(int suit);
 char getRank(int rank);
-void getFirstHand(int cardRank[], int cardSuit[]);
+void getFirstHand(int * ranks, int * suits);
 void getFinalHand(int cardRank[], int cardSuit[], int finalRank[],
                   int finalSuit[], int ranksInHand[], int suitsInHand[]);
 
 int  analyzeHand(int ranksInHand[], int ranksInSuit[]);
-void printHand(int cardRank[], int cardSuit[]);
+void printHand(int * ranks, int * suits); // void printHand(struct * hand)
 void startNewRound(int * ranks, int * suits);
+int getRandomValueFrom(int);
+bool isCardDuplicate(int * ranks, int * suits, int cardIndex);
+void drawCard(int index, int * ranks, int * suits);
 
 int main(int argc, const char * argv[]) {
     
-    int bet;
     int bank = CREDITS;
-    int cardRank[COUNT]; // one of thirteen values (Aces-King)
-    int cardSuit[COUNT]; // one of four values (Clubs, Diamonds, Hearts, Spades)
     
+    // TODO: Create card struct
+    int handRanks[COUNT]; // one of thirteen values (Aces-King)
+    int handSuits[COUNT]; // one of four values (Clubs, Diamonds, Hearts, Spades)
+    
+    // TODO: Could this get done without additional variables?
     int finalRank[COUNT];
     int finalSuit[COUNT];
+    
+    // TODO - construct in heap from hand when hand is evaluated
     int ranksInHand[RANKS]; // used to evaluate winnings
     int suitsInHand[SUITS]; // used to evaluate winnings
     
+    int bet;
     int winnings;
-    time_t t;
-    
     char playAgain;
+    time_t t;
     
     // Start the game
     printGreeting();
@@ -67,13 +74,13 @@ int main(int argc, const char * argv[]) {
         bet = getBet();
         
         srand((uint)time(&t)); // seed rand for each new round
-        getFirstHand(cardRank, cardSuit);
+        getFirstHand(handRanks, handSuits);
         printf("\n    * First hand *\n");
-        printHand(cardRank, cardSuit);
+        printHand(handRanks, handSuits);
         
         
         // finalize hand
-        getFinalHand(cardRank, cardSuit, finalRank, finalSuit, ranksInHand, suitsInHand);
+        getFinalHand(handRanks, handSuits, finalRank, finalSuit, ranksInHand, suitsInHand);
         printf("\n   *** Final hand ***\n");
         printHand(finalRank, finalSuit);
         
@@ -143,8 +150,8 @@ int getBet(void)
     // valid input [0,5]
     do
     {
-        printf("Bet?\n");
-        printf("Enter 0 to give up: ");
+        
+        printf("Enter Bet (0 to give up): ");
         scanf(" %d", &bet);
         
         if (bet >= 1 && bet <= 5)
@@ -158,7 +165,7 @@ int getBet(void)
         }
         else
         {
-            printf("\n**** Only bet 1-5 or give up! ****\n\n");
+            printf("\n**** Bet 1-5 or give up! ****\n\n");
         }
     } while ( (bet < 0) || (bet > 5));
     
@@ -166,41 +173,56 @@ int getBet(void)
 }
 
 // Deal the first five cards
-void getFirstHand(int cardRank[], int cardSuit[])
+void getFirstHand(int * cardRanks, int * cardSuits)
 {
-    int i, j;
-    int duplicate;
-    
+    int i;
     for (i = 0; i < COUNT; i++)
     {
-        duplicate = 0; // found a duplicate card
-        do
-        {
-            // get a card (random rank and suit)
-            cardRank[i] = rand() % RANKS; // (0 - 12) -> (2-10, J, Q, K, A)
-            cardSuit[i] = rand() % SUITS; // (0 - 3)  -> (♢, ♡, ♧, ♤)
-            
-            // Check if drawn random card is already in hand
-            for (j = 0; j < i; j++)
-            {
-                if (cardRank[i] == cardRank[j] && cardSuit[i] == cardSuit[j])
-                {
-                    duplicate = 1;
-                    break;
-                }
-            }
-            
-        } while(duplicate);
+        drawCard(i, cardRanks, cardSuits);
     }
 }
 
-// Prints the 5 card hand
-void printHand(int ranks[], int suits[])
+// Draws a random card
+void drawCard(int index, int * ranks, int * suits)
 {
-    for(int i = 0; i < COUNT; i++)
+    do
     {
-        char suit = getSuit(suits[i]);
-        char rank = getRank(ranks[i]);
+        // get a card (random rank and suit)
+        ranks[index] = getRandomValueFrom(RANKS); // (0 - 12) -> (2-10, J, Q, K, A)
+        suits[index] = getRandomValueFrom(SUITS); // (0 - 3)  -> (♧, ♢, ♡, ♤)
+        
+    } while(isCardDuplicate(ranks, suits, index));
+}
+
+// Returns a random value from 0 up to one less the range
+int getRandomValueFrom(int range) {
+    return rand() % range;
+}
+
+// Checks for duplicates of the current drawn card
+bool isCardDuplicate(int * cardRanks, int * cardSuits, int cardIndex) {
+    int j;
+    for (j = 0; j < cardIndex; j++)
+    {
+        if (cardRanks[cardIndex] == cardRanks[j] && cardSuits[cardIndex] == cardSuits[j])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// Prints the 5 card hand
+void printHand(int * ranks, int * suits)
+{
+    int i;
+    char suit, rank;
+    
+    for(i = 0; i < COUNT; i++)
+    {
+        suit = getSuit(suits[i]);
+        rank = getRank(ranks[i]);
         printf("card #%d: %c%c\n", i + 1, rank, suit);
     }
     printf("\n");
@@ -224,9 +246,9 @@ char getSuit(int suit)
         case 3:
             s = 'S'; // Spades
             break;
-        default:
-            s = 0; // Invalid
-            break;
+        default: // Invalid
+            printf("Error--Invalid card suit: %c.\n", suit);
+            exit(2);
     }
     return s;
 }
@@ -237,6 +259,9 @@ char getRank(int rank)
     char r;
     switch(rank)
     {
+        case 0:
+            r = 'A'; // Ace
+            break;
         case 1:
         case 2:
         case 3:
@@ -259,12 +284,9 @@ char getRank(int rank)
         case 12:
             r = 'K'; // King
             break;
-        case 0:
-            r = 'A'; // Ace
-            break;
-        default:
-            r = 0; // Invalid
-            break;
+        default: // Invalid
+            printf("Error--Invalid card rank: %c.\n", rank);
+            exit(3);
     }
     return r;
 }
