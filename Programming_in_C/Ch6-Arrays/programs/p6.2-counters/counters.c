@@ -1,3 +1,7 @@
+// Programming in C, 4th, Kochan
+// Program 6.2
+// Created by Guti on 3/8/18.
+
 // Demonstrating an array of counters
 
 #include <stdio.h>
