@@ -5,7 +5,7 @@ ODIR = obj
 #Variables
 CC = gcc
 
-# debugging, warnings, include header files (current directory) (-I.)
+# debugging, warnings, include header files
 CFLAGS = -g -Wall -I$(IDIR)
 RM = rm -fr
 
@@ -24,10 +24,7 @@ $(EDIR)/prime_revisited: $(OBJS)
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -o $@ -c $< 
-# $(OBJS): $(SRC)
-# 	$(CC) $(CFLAGS) -o $(OBJS) -c $(SRC)
 	
 .PHONY : clean
 clean:
-# *.dSYM *.out
 	$(RM) $(EDIR)/* $(ODIR)/*.o core *~ $(IDIR)/*~ 

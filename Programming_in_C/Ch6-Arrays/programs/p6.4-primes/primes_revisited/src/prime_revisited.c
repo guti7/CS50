@@ -19,6 +19,7 @@
 #include <stdbool.h>
 
 #define COUNT 50
+
 int main(void) {
   int p, i, primes[50], primeIndex = 2;
   bool isPrime;
