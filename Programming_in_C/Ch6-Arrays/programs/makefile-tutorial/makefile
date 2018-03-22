@@ -1,13 +1,15 @@
 CC = gcc
 CFLAGS = -I. -g -Wall 
 DEPS = hellomake.h
+OBJS = hellomake.o hellofunc.o
 
-hellomake: hellomake.o hellofunc.o 
-	$(CC) -o hellomake hellomake.o hellofunc.o
+hellomake.exe: $(OBJS)
+	$(CC) -o $@ $^ $(CFLAGS)
 
 # Dependencies on heade files
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
+# %.* means all files ending with .o and .c
 # CC defines de compiler to use, -c says to generate the object
 # file, -o $@ says to put the output in the file named on
 # the left side of the :, the $< is the first item in the
