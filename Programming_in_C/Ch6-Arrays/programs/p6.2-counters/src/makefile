@@ -1,26 +1,33 @@
+EDIR = ../exe
+IDIR = ../include
+ODIR = obj
+
 #Variables
 CC = gcc
 
 # debugging, warnings, include header files (current directory) (-I.)
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -I$(IDIR)
 RM = rm -fr
 
 # Source
 SRC = counters.c
 
 # # Objects
-OBJS = counters.o
+_OBJS = counters.o
+OBJS = $(_OBJS:%=$(ODIR)/%)
 
 # Dependencies
-# DEP = 
+DEPS = 
 
-counters: $(OBJS)
-	$(CC) $(CFLAGS) -o counters $(OBJS) 
+$(EDIR)/counters: $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^ 
 
-$(OBJS): $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC)
+$(ODIR)/%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -o $@ -c $< 
+# $(OBJS): $(SRC)
+# 	$(CC) $(CFLAGS) -o $(OBJS) -c $(SRC)
 	
 .PHONY : clean
 clean:
-	# counters *.dSYM *.out
-	$(RM) *.o *.exe counters
+# *.dSYM *.out
+	$(RM) $(EDIR)/* $(ODIR)/*.o core *~ $(IDIR)/*~ 
