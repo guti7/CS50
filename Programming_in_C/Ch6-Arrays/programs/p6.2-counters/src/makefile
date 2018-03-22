@@ -19,7 +19,8 @@ counters: $(OBJS)
 
 $(OBJS): $(SRC)
 	$(CC) $(CFLAGS) -c $(SRC)
-  
+	
+.PHONY : clean
 clean:
 	# counters *.dSYM *.out
 	$(RM) *.o *.exe counters
