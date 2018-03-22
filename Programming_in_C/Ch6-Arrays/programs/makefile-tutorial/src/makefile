@@ -1,5 +1,15 @@
+# ./ is within src/
+#headers directory
+IDIR = ../include
+ODIR = obj
+# library directory
+LDIR = ../lib
+
+# linking math
+LIBS = -lm 
+
 CC = gcc
-CFLAGS = -I. -g -Wall 
+CFLAGS = -I$(IDIR) -g -Wall 
 DEPS = hellomake.h
 OBJS = hellomake.o hellofunc.o
 
