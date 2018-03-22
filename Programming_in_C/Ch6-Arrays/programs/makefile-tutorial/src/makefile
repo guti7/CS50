@@ -14,10 +14,9 @@ CFLAGS = -I$(IDIR) -g -Wall
 
 _DEPS = hellomake.h
 DEPS = $(patsubst %, $(IDIR)/%, $(_DEPS))
-# DEPS = $(_DEPS:%=$(IDIR)/%)
 
 _OBJS = hellomake.o hellofunc.o
-OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
+OBJS = $(_OBJS:%=$(ODIR)/%)
 
 $(EDIR)/hellomake: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
