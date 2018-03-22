@@ -1,7 +1,9 @@
-hellomake: hellomake.c hellofunc.c
-	gcc -o hellomake.exe hellomake.c hellofunc.c -I. 
+CC=gcc
+CFLAGS=-I.
+
+hellomake: hellomake.o hellofunc.o 
+	$(CC) -o hellomake.exe hellomake.o hellofunc.o
 
 .PHONY: clean
-
 clean:
-	rm -fr *.exe
+	rm -fr *.exe *.o
