@@ -1,5 +1,8 @@
-// Program to generate a table of prime numbers
+// Programming in C, 4th, Kochan
+// Program 5.10
+// Created by Guti on 3/8/18.
 
+// Generates a table of prime numbers
 #include <stdio.h>
 
 int main(void) {

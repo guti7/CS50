@@ -1,3 +1,7 @@
+// Programming in C, 4th, Kochan
+// Program 6.4
+// Created by Guti on 3/8/18.
+
 // Program to generate a table of prime numbers
 
 #include <stdio.h>
