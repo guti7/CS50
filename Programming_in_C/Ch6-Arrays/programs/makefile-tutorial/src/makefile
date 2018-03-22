@@ -20,7 +20,7 @@ _OBJS = hellomake.o hellofunc.o
 OBJS = $(patsubst %, $(ODIR)/%, $(_OBJS))
 
 $(EDIR)/hellomake: $(OBJS)
-	$(CC) -o $@ $^ $(CFLAGS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 # Dependencies on heade files
 $(ODIR)/%.o: %.c $(DEPS)
@@ -41,4 +41,4 @@ $(ODIR)/%.o: %.c $(DEPS)
 
 .PHONY: clean
 clean:
-	rm -fr *.exe *.o
+	rm -fr $(EDIR)/* $(ODIR)/*.o core *~ $(INCDIR)/*~ 
