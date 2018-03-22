@@ -17,6 +17,7 @@ int main(void)
   int nextDigit, base, index = 0;
   
   // Get number and base from user
+  // TODO: validate input number and base
   printf("Number to be converted? ");
   scanf(" %ld", &numberToConvert);
   printf("Base? ");
