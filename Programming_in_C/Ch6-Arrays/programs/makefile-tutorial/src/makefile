@@ -21,7 +21,7 @@ OBJS = $(_OBJS:%=$(ODIR)/%)
 $(EDIR)/hellomake: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
-# Dependencies on heade files
+# Dependencies on header files
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 # %.* means all files ending with .o and .c
@@ -40,4 +40,4 @@ $(ODIR)/%.o: %.c $(DEPS)
 
 .PHONY: clean
 clean:
-	rm -fr $(EDIR)/* $(ODIR)/*.o core *~ $(INCDIR)/*~ 
+	rm -fr $(EDIR)/* $(ODIR)/*.o core *~ $(INCDIR)/*~
