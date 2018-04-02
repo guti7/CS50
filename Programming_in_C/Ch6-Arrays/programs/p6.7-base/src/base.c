@@ -13,26 +13,30 @@ int main(void)
   };
   
   long int numberToConvert;
+  long int digitsToConvert;
   int convertedNumber[64];
   int nextDigit, base, index = 0;
   
   // Get number and base from user
   // TODO: validate input number and base
-  printf("Number to be converted? ");
+  printf("number to be converted (base 10)? ");
   scanf(" %ld", &numberToConvert);
-  printf("Base? ");
+  printf("Convert to base: ");
   scanf(" %d", &base);
   
   // Convert to indicated base
+  digitsToConvert = numberToConvert;
   do
   {
-    convertedNumber[index] = numberToConvert % base;
+    convertedNumber[index] = digitsToConvert % base;
     index++;
-    numberToConvert /= base;
-  } while (numberToConvert); // numberToConvert != 0
+    digitsToConvert /= base;
+  } while (digitsToConvert); // numberToConvert != 0
   
   // Display results of conversion
-  printf("Converted number = ");
+  printf("Results:\n");
+  printf("\tNumber(base 10): %ld\n", numberToConvert);
+  printf("\tConversion (base %d): ", base);
   for (index--; index >= 0; index--)
   {
     nextDigit = convertedNumber[index];
