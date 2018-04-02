@@ -12,20 +12,20 @@ int main(void)
   int i, numFibs;
   
   // Get number of fibonacci numbers to display
-  printf("How many fibonacci numbers o you want (1-75)? ");
+  printf("How many fibonacci numbers do you want (1-75)? ");
   scanf(" %d", &numFibs);
   
   // Input check
   if (numFibs < 1 || numFibs > 75)
   {
-    printf("Error: Bad number\n");
+    printf("Error - Bad number: %d\n", numFibs);
     return 1; // Exit failure code 1
   }
   
-  // array holding fibonacci sequence
+  // Array holding fibonacci sequence
   unsigned long long int fibonacci[numFibs];
   
-  // First two numbers is the sequence are always 0, 1 
+  // First two numbers in the sequence are always 0, 1 
   fibonacci[0] = 0;
   fibonacci[1] = 1;
   
@@ -34,6 +34,7 @@ int main(void)
     fibonacci[i] = fibonacci[i - 2] + fibonacci[i - 1];
   }
   
+  // Print fibonacci sequence
   for (i = 0; i < numFibs; i++)
   {
     printf("%lld ", fibonacci[i]);
