@@ -12,7 +12,7 @@ RM = rm -fr
 # Source
 SRC = fibb.c
 
-# # Objects
+# Objects
 _OBJS = fibb.o
 OBJS = $(_OBJS:%=$(ODIR)/%)
 
@@ -24,9 +24,6 @@ $(EDIR)/fibb: $(OBJS)
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -o $@ -c $<
-	
-# $(ODIR)/convertbase.o: $(SRC) $(DEPS)
-# 	$(CC) $(CFLAGS) -o $@ -c $<
 	
 .PHONY : clean
 clean:

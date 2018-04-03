@@ -1,3 +1,4 @@
+# Directories
 EDIR = ../exe
 IDIR = ../include
 ODIR = obj
@@ -20,11 +21,11 @@ OBJS = $(_OBJS:%=$(ODIR)/%)
 DEPS = 
 
 $(EDIR)/nr-sqrroot: $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ 
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 .PHONY : clean
 clean:
-	$(RM) $(EDIR)/* $(ODIR)/*.o core *~ $(IDIR)/*~ 
+	$(RM) $(EDIR)/* $(ODIR)/*.o core *~ $(IDIR)/*~
