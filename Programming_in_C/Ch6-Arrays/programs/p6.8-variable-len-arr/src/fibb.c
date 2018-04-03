@@ -6,10 +6,12 @@
 // A varible length array is one which is specified by a variable
 // and not a constant expression for its size
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void)
 {
   int i, numFibs;
+  unsigned long long *fibonacci;
   
   // Get number of fibonacci numbers to display
   printf("How many fibonacci numbers do you want (1-75)? ");
@@ -23,7 +25,7 @@ int main(void)
   }
   
   // Array holding fibonacci sequence
-  unsigned long long int fibonacci[numFibs];
+  fibonacci = malloc(sizeof(unsigned long long) * numFibs);
   
   // First two numbers in the sequence are always 0, 1 
   fibonacci[0] = 0;
@@ -41,5 +43,6 @@ int main(void)
   }
   printf("\n");
   
+  free(fibonacci);
   return 0;
 }
