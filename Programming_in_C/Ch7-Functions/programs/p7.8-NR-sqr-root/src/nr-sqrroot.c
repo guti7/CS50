@@ -8,15 +8,25 @@
 */
 #include <stdio.h>
 
+// Check number sign
+int isNegative(int n) {
+  return n < 0;
+}
+
 // Calculate the absolute value of a number
 float absoluteValue(float n) {
-  return n < 0? -n: n;
+  return isNegative(n)? -n: n;
 }
 
 // Compute the square root of a number
 float squareRoot(float n) {
   const float epsilon = 0.00001;
   float guess = 1.0;
+  
+  if (isNegative(n)) {
+    printf("Negative argument to square root.\n");
+    return -1.0;
+  }
   
   while(absoluteValue(guess * guess - n) >= epsilon) {
     guess = (n / guess + guess) / 2.0;
@@ -31,5 +41,7 @@ int main(void) {
   number = 144.0;
   printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
   number = 17.5;
+  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
+  number = -17.5;
   printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
 }
