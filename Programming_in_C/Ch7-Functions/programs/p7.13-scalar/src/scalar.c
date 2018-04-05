@@ -7,41 +7,43 @@
 */
 #include <stdio.h>
 
+#define ROWS 3
+#define COLS 5
 int main(void) {
-  void scalarMultiply(int matrix[3][5], int scalar);
+  void scalarMultiply(int nRows, int nCols, int matrix[nRows][nCols], int scalar);
   void displayMatrix(int nRows, int nCols, int matrix[nRows][nCols]);
   
   int scalar = 2;
   
-  int sampleMatrix[3][5] = {
+  int sampleMatrix[ROWS][COLS] = {
                             {  7, 16, 55, 13, 12 },
                             { 12, 10, 52,  0,  7 },
                             { -2,  1,  2,  4,  9 }
                           };
   
   printf("Original matrix:\n");
-  displayMatrix(3, 5, sampleMatrix);
+  displayMatrix(ROWS, COLS, sampleMatrix);
   
-  scalarMultiply(sampleMatrix, scalar);
+  scalarMultiply(ROWS, COLS, sampleMatrix, scalar);
   
   printf("\nMultiplied by %i:\n", scalar);
-  displayMatrix(3, 5, sampleMatrix);
+  displayMatrix(ROWS, COLS, sampleMatrix);
 
   scalar = -1;
-  scalarMultiply(sampleMatrix, -1);
+  scalarMultiply(ROWS, COLS, sampleMatrix, -1);
   
   printf("\nMultiplied by %i:\n", scalar);
-  displayMatrix(3, 5, sampleMatrix);
+  displayMatrix(ROWS, COLS, sampleMatrix);
   
   return 0;
 }
 
 // Multiply a 3 x 5 matrix by scalar
-void scalarMultiply(int matrix[3][5], int scalar) {
+void scalarMultiply(int nRows, int nCols, int matrix[nRows][nCols], int scalar) {
   int r, c;
   
-  for (r = 0; r < 3; r++) {
-    for (c = 0; c < 5; c++) {
+  for (r = 0; r < nRows; r++) {
+    for (c = 0; c < nCols; c++) {
       matrix[r][c] *= scalar;
     }
   }
