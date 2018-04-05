@@ -9,7 +9,7 @@
 
 int main(void) {
   void scalarMultiply(int matrix[3][5], int scalar);
-  void displayMatrix(int matrix[3][5]);
+  void displayMatrix(int nRows, int nCols, int matrix[nRows][nCols]);
   
   int scalar = 2;
   
@@ -20,18 +20,18 @@ int main(void) {
                           };
   
   printf("Original matrix:\n");
-  displayMatrix(sampleMatrix);
+  displayMatrix(3, 5, sampleMatrix);
   
   scalarMultiply(sampleMatrix, scalar);
   
   printf("\nMultiplied by %i:\n", scalar);
-  displayMatrix(sampleMatrix);
+  displayMatrix(3, 5, sampleMatrix);
 
   scalar = -1;
   scalarMultiply(sampleMatrix, -1);
   
   printf("\nMultiplied by %i:\n", scalar);
-  displayMatrix(sampleMatrix);
+  displayMatrix(3, 5, sampleMatrix);
   
   return 0;
 }
@@ -47,13 +47,13 @@ void scalarMultiply(int matrix[3][5], int scalar) {
   }
 }
 
-// Display matrix
-void displayMatrix(int matrix[3][5]) {
+// Display matrix of any size
+void displayMatrix(int nRows, int nCols, int matrix[nRows][nCols]) {
   int r, c;
   
-  for (r = 0; r < 3; r++) {
+  for (r = 0; r < nRows; r++) {
     printf("    ");
-    for (c = 0; c < 5; c++) {
+    for (c = 0; c < nCols; c++) {
       printf("%4i ", matrix[r][c]);
     }
     printf("\n");
