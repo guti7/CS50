@@ -22,21 +22,30 @@ int main(void) {
   printf("Original matrix:\n");
   displayMatrix(sampleMatrix);
   
-  // scalarMultiply(sampleMatrix, scalar);
-  // 
-  // printf("\nMultiplied by %i:\n", scalar);
-  // displayMatrix(sampleMatrix);
-  // 
-  // scalar = -1;
-  // scalarMultiply(sampleMatrix, -1);
-  // 
-  // printf("\nMultiplied by %i:\n", scalar);
-  // displayMatrix(sampleMatrix);
+  scalarMultiply(sampleMatrix, scalar);
+  
+  printf("\nMultiplied by %i:\n", scalar);
+  displayMatrix(sampleMatrix);
+
+  scalar = -1;
+  scalarMultiply(sampleMatrix, -1);
+  
+  printf("\nMultiplied by %i:\n", scalar);
+  displayMatrix(sampleMatrix);
   
   return 0;
 }
 
-
+// Multiply a 3 x 5 matrix by scalar
+void scalarMultiply(int matrix[3][5], int scalar) {
+  int r, c;
+  
+  for (r = 0; r < 3; r++) {
+    for (c = 0; c < 5; c++) {
+      matrix[r][c] *= scalar;
+    }
+  }
+}
 
 // Display matrix
 void displayMatrix(int matrix[3][5]) {
@@ -45,7 +54,7 @@ void displayMatrix(int matrix[3][5]) {
   for (r = 0; r < 3; r++) {
     printf("    ");
     for (c = 0; c < 5; c++) {
-      printf("%3i ", matrix[r][c]);
+      printf("%4i ", matrix[r][c]);
     }
     printf("\n");
   }
