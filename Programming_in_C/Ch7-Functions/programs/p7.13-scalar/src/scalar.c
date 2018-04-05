@@ -9,6 +9,7 @@
 
 #define ROWS 3
 #define COLS 5
+
 int main(void) {
   void scalarMultiply(int nRows, int nCols, int matrix[nRows][nCols], int scalar);
   void displayMatrix(int nRows, int nCols, int matrix[nRows][nCols]);
@@ -38,7 +39,7 @@ int main(void) {
   return 0;
 }
 
-// Multiply a 3 x 5 matrix by scalar
+// Multiply a matrix of any size by scalar
 void scalarMultiply(int nRows, int nCols, int matrix[nRows][nCols], int scalar) {
   int r, c;
   
