@@ -25,25 +25,27 @@ void sort(int a[], int n) {
   }
 }
 
-int main(void) {
+// Print array elements 
+void displayArray(int array[], int size) {
   int i;
+  for (i = 0; i < size; i++) {
+    printf("%i ", array[i]);
+  }
+  printf("\n");
+}
+
+int main(void) {
   
   int array[SIZE] = { 34, -5, -6, 0, 12, 100 };
   
   printf("The array to be sorted: \n");
-  for (i = 0; i < SIZE; i++) {
-    printf("%i ", array[i]);
-  }
+  displayArray(array, SIZE);
   
   sort(array, SIZE);
   
-  printf("\n\nThe array sorted:\n");
+  printf("\nThe array sorted:\n");
   
-  for (i = 0; i < SIZE; i++) {
-    printf("%i ", array[i]);
-  }
-  
-  printf("\n");
+  displayArray(array, SIZE);
   
   return 0;
 }
