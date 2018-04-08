@@ -15,9 +15,9 @@ int convertedNumber[64];
 int digit = 0;
 
 // Prototypes
-void getNumberAndBase(void);
-void convertNumber(void);
-void displayConvertedNumber(void);
+void getNumberAndBase();
+void convertNumber();
+void displayConvertedNumber();
 
 int main(void) {
   getNumberAndBase();
@@ -25,4 +25,25 @@ int main(void) {
   displayConvertedNumber();
   
   return 0;
+}
+
+void getNumberAndBase() {
+  printf("Number to be converted? ");
+  scanf(" %li", &numberToConvert);
+  
+  printf("Base? ");
+  scanf(" %i", &base);
+  
+  if (base < 2 || base > 16) {
+    printf("Invalid Base: must be between 2 and 16\n");
+    base = 10; // TODO: How to handle...?
+  }
+}
+
+void convertNumber() {
+
+}
+
+void displayConvertedNumber() {
+  
 }
