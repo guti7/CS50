@@ -10,9 +10,11 @@
 #define ROWS 3
 #define COLS 5
 
+// Function Prototypes
+void scalarMultiply(int nRows, int nCols, int matrix[][nCols], int scalar);
+void displayMatrix(int nRows, int nCols, int matrix[][nCols]);
+
 int main(void) {
-  void scalarMultiply(int nRows, int nCols, int matrix[nRows][nCols], int scalar);
-  void displayMatrix(int nRows, int nCols, int matrix[nRows][nCols]);
   
   int scalar = 2;
   
