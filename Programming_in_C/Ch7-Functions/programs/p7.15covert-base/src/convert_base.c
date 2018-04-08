@@ -41,7 +41,11 @@ void getNumberAndBase() {
 }
 
 void convertNumber() {
-
+  do {
+    convertedNumber[digit] = numberToConvert % base;
+    digit++;
+    numberToConvert /= base;
+  } while (numberToConvert != 0);
 }
 
 void displayConvertedNumber() {
