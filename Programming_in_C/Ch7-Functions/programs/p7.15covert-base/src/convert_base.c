@@ -1,6 +1,6 @@
 /*
 * Programming in C, 4th, Kochan
-* Program 7.13
+* Program 7.15
 * Created by Guti on 04/07/2018.
 *
 * Converts a positive integer to another Base
