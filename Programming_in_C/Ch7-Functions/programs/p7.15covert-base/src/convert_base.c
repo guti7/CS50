@@ -49,5 +49,18 @@ void convertNumber() {
 }
 
 void displayConvertedNumber() {
+  const char baseDigits[16] = {
+    '0', '1', '2', '3', '4', '5', '6', '7',
+    '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+  };
   
+  int nextDigit;
+  
+  printf("Converted number = ");
+  for(--digit; digit >= 0; digit--) {
+    nextDigit = convertedNumber[digit];
+    printf("%c", baseDigits[nextDigit]);
+  }
+  
+  printf("\n");
 }
