@@ -19,8 +19,7 @@ float absoluteValue(float n) {
 }
 
 // Compute the square root of a number
-float squareRoot(float n) {
-  const float epsilon = 0.00001;
+float squareRoot(float n, float epsilon) {
   float guess = 1.0;
   
   if (isNegative(n)) {
@@ -36,12 +35,13 @@ float squareRoot(float n) {
 }
 
 int main(void) {
+  const float epsilon = 0.00001;
   float number = 2.0;
-  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
+  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number, epsilon));
   number = 144.0;
-  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
+  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number, epsilon));
   number = 17.5;
-  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
+  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number, epsilon));
   number = -17.5;
-  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number));
+  printf("squareRoot(%.2f) = %f\n", number, squareRoot(number, epsilon));
 }
