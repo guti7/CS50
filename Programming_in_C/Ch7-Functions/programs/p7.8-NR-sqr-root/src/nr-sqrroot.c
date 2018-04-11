@@ -9,19 +9,19 @@
 #include <stdio.h>
 
 // Check number sign
-int isNegative(int n) {
+int isNegative(double n) {
   return n < 0;
 }
 
 // Calculate the absolute value of a number
-float absoluteValue(float n) {
+double absoluteValue(double n) {
   return isNegative(n)? -n: n;
 }
 
 // Compute the square root of a number
-float squareRoot(float n, float epsilon) {
+double squareRoot(double n, double epsilon) {
   // Arbitrary initial guess
-  float guess = 1.0;
+  double guess = 1.0;
   
   if (isNegative(n)) {
     printf("Negative argument to square root.\n");
@@ -30,14 +30,14 @@ float squareRoot(float n, float epsilon) {
   
   do {
     guess = (n / guess + guess) / 2.0;
-  } while(guess * guess / n > 1.000001);
+  } while(guess * guess / n > 1.0);
   
   return guess;
 }
 
 int main(void) {
-  const float epsilon = 0.00001;
-  float number = 2.0;
+  const double epsilon = 0.00001;
+  double number = 2.0;
   printf("squareRoot(%.2f) = %f\n", number, squareRoot(number, epsilon));
   number = 4.0;
   printf("squareRoot(%.2f) = %f\n", number, squareRoot(number, epsilon));
