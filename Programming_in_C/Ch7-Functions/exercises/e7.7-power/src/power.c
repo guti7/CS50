@@ -29,6 +29,8 @@ int main(void) {
   n = 7, p = 9;
   printf("%i^%i: %10li\n", n, p, n_to_the_p(n, p));
   
+  return 0;
+  
 }
 
 // Raises an integer `n` to a positive integer power `p`
