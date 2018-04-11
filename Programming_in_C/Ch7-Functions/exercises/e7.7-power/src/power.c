@@ -31,7 +31,7 @@ int main(void) {
   
 }
 
-// Raises an integer `x=n` to a positive integer power `p`
+// Raises an integer `n` to a positive integer power `p`
 long n_to_the_p(int n, int p) {
   long result = 1;
   int i;
