@@ -1,9 +1,9 @@
 /*
 * Programming in C, 4th, Kochan
-* Program 7.12
-* Created by Guti on 04/05/2018.
+* Exercise 7.13
+* Created by Guti on 04/11/2018.
 *
-* Sort an array of integers in ascending order
+* Sort an array of integers in ascending or descending order
 */
 
 #include <stdio.h>
