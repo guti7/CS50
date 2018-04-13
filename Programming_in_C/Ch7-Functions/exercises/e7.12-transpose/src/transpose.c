@@ -14,6 +14,7 @@
 void transposeMatrix(int nRows, int nCols, int matrix[][nCols], int transposed[][nRows]);
 
 void transposeSquareMatrixInPlace(int nRows, int nCols, int matrix[][nCols]);
+void swap(int matrix[][COLS], int i, int j);
 void displayMatrix(int nRows, int nCols, int matrix[][nCols]);
 
 int main(void) {
@@ -38,7 +39,7 @@ int main(void) {
   displayMatrix(COLS, ROWS, transposedMatrix);
   
   printf("\nTranspose Square Matrix in-place:\n");
-  transposeInPlace(ROWS, COLS, sampleMatrix);
+  transposeSquareMatrixInPlace(ROWS, COLS, sampleMatrix);
   displayMatrix(COLS, ROWS, sampleMatrix);
 }
 
@@ -54,16 +55,21 @@ void transposeMatrix(int nRows, int nCols, int matrix[][nCols], int transpose[][
 
 // For square matrix
 void transposeSquareMatrixInPlace(int rows, int cols, int matrix[][cols]) {
-  int row, col, temp;
+  int row, col;
   
   for (row = 0; row < rows; row++) {
     for (col = row + 1; col < cols; col++) {
-      // swap items
-      temp = matrix[row][col];
-      matrix[row][col] = matrix[col][row];
-      matrix[col][row] = temp;
+      // Swap items
+      swap(matrix, row, col);
     }
   }
+}
+
+// Swap Elements for transpose position
+void swap(int matrix[][COLS], int i, int j) {
+  int temp = matrix[i][j];
+  matrix[i][j] = matrix[j][i];
+  matrix[j][i] = temp;
 }
 
 // Display matrix of any size
