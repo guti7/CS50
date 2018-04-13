@@ -8,6 +8,7 @@
 */
 
 #include <stdio.h>
+#include <stdbool.h>
 
 // Date structure
 struct date {
@@ -17,20 +18,19 @@ struct date {
 };
 
 // Prototypes
+int numberOfDays(struct date d);
+bool isLeapYear(int year);
 void printDate(struct date d);
 
 int main(void) {
   
   struct date today, tomorrow;
   
-  const int daysPerMonth[12] = { 31, 28, 31, 30, 31, 30,
-                                 31, 31, 30, 31, 30, 31 };
-  
   printf("Enter today's date (mm dd yyyy): ");
   scanf("%i%i%i", &today.month, &today.day, &today.year);
   
   // Find tomorrow's Date
-  if (today.day != daysPerMonth[today.month - 1]) { // Regular next day
+  if (today.day != numberOfDays(today)) { // Regular next day
     tomorrow.day = today.day + 1;
     tomorrow.month = today.month;
     tomorrow.year = today.year;
@@ -48,6 +48,24 @@ int main(void) {
   printDate(tomorrow);
 }
 
+int numberOfDays(struct date d) {
+  int days;
+  const int daysPerMonth[12] = { 31, 28, 31, 30, 31, 30,
+                                 31, 31, 30, 31, 30, 31 };
+  
+  days = daysPerMonth[d.month - 1];
+  
+  if (isLeapYear(d.year) && d.month == 2) {
+    days++;
+  }
+  
+  return days;
+}
+
+bool isLeapYear(int year) {
+  return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+}
+
 void printDate(struct date d) {
-  printf("%.2i/%.2i/%.2i\n", d.month, d.day, d.year % 100);
+  printf("%.2i/%.2i/%i\n", d.month, d.day, d.year);
 }
