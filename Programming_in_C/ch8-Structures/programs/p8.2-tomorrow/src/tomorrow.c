@@ -29,8 +29,14 @@ int main(void) {
   printf("Enter today's date (mm dd yyyy): ");
   scanf("%i%i%i", &today.month, &today.day, &today.year);
   
-  printf("Today's date is: ");
-  printDate(today);
+  // Find tomorrow's Date
+  // Regular next day
+  tomorrow.day = today.day + 1;
+  tomorrow.month = today.month;
+  tomorrow.year = today.year;
+  
+  printf("Tomorrow's date is: ");
+  printDate(tomorrow);
 }
 
 void printDate(struct date d) {
