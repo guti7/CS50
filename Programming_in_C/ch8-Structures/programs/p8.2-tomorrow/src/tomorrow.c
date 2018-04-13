@@ -30,10 +30,19 @@ int main(void) {
   scanf("%i%i%i", &today.month, &today.day, &today.year);
   
   // Find tomorrow's Date
-  // Regular next day
-  tomorrow.day = today.day + 1;
-  tomorrow.month = today.month;
-  tomorrow.year = today.year;
+  if (today.day != daysPerMonth[today.month - 1]) { // Regular next day
+    tomorrow.day = today.day + 1;
+    tomorrow.month = today.month;
+    tomorrow.year = today.year;
+  } else if (today.month  == 12) { // At end of year
+    tomorrow.day = 1;
+    tomorrow.month = 1;
+    tomorrow.year = today.year + 1;
+  } else { // At end of month 
+    tomorrow.day = 1;
+    tomorrow.month = today.month + 1;
+    tomorrow.year = today.year;
+  }
   
   printf("Tomorrow's date is: ");
   printDate(tomorrow);
