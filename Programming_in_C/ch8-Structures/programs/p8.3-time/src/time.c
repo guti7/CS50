@@ -24,16 +24,17 @@ int main(void) {
   
   // get start time
   struct time currentTime, nextTime;
-  currentTime.seconds = 59;
-  currentTime.minutes = 59;
-  currentTime.hours = 23;
+  
+  // Prompt user for time
+  printf("Enter the time (hh:mm:ss): ");
+  scanf("%i:%i:%i", &currentTime.hours, &currentTime.minutes, &currentTime.seconds);
   
   // Report current time
   printf("Current time: ");
   printTime(currentTime);
   
   // Update time by second
-  printf("Next time:    ");
+  printf("Updated time: ");
   nextTime = updateTime(currentTime);
   printTime(nextTime);
   
