@@ -9,14 +9,17 @@
 
 #include <stdio.h>
 
+// Date structure
+struct date {
+  int month;
+  int day;
+  int year;
+};
+
+// Prototypes
+void printDate(struct date d);
+
 int main(void) {
-  
-  // Date structure
-  struct date {
-    int month;
-    int day;
-    int year;
-  };
   
   struct date today, tomorrow;
   
@@ -26,5 +29,10 @@ int main(void) {
   printf("Enter today's date (mm dd yyyy): ");
   scanf("%i%i%i", &today.month, &today.day, &today.year);
   
-  printf("Today's date is %.2i/%.2i/%.2i\n", today.month, today.day, today.year % 100); // 
+  printf("Today's date is: ");
+  printDate(today);
+}
+
+void printDate(struct date d) {
+  printf("%.2i/%.2i/%.2i\n", d.month, d.day, d.year % 100);
 }
