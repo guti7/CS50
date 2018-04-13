@@ -18,36 +18,48 @@ struct date {
 };
 
 // Prototypes
+struct date updateDate(struct date d);
 int numberOfDays(struct date d);
 bool isLeapYear(int year);
 void printDate(struct date d);
 
 int main(void) {
   
-  struct date today, tomorrow;
+  struct date thisDay, nextDay;
   
   printf("Enter today's date (mm dd yyyy): ");
-  scanf("%i%i%i", &today.month, &today.day, &today.year);
+  scanf("%i%i%i", &thisDay.month, &thisDay.day, &thisDay.year);
   
-  // Find tomorrow's Date
-  if (today.day != numberOfDays(today)) { // Regular next day
-    tomorrow.day = today.day + 1;
-    tomorrow.month = today.month;
-    tomorrow.year = today.year;
-  } else if (today.month  == 12) { // At end of year
-    tomorrow.day = 1;
-    tomorrow.month = 1;
-    tomorrow.year = today.year + 1;
-  } else { // At end of month 
-    tomorrow.day = 1;
-    tomorrow.month = today.month + 1;
-    tomorrow.year = today.year;
-  }
+  // Find next Date
+  nextDay = updateDate(thisDay);
   
   printf("Tomorrow's date is: ");
-  printDate(tomorrow);
+  printDate(nextDay);
 }
 
+// Determines the next date from a date
+struct date updateDate(struct date d) {
+  
+  struct date tomorrow;
+  
+  if (d.day != numberOfDays(d)) { // Regular next day
+    tomorrow.day = d.day + 1;
+    tomorrow.month = d.month;
+    tomorrow.year = d.year;
+  } else if (d.month  == 12) { // At end of year
+    tomorrow.day = 1;
+    tomorrow.month = 1;
+    tomorrow.year = d.year + 1;
+  } else { // At end of month 
+    tomorrow.day = 1;
+    tomorrow.month = d.month + 1;
+    tomorrow.year = d.year;
+  }
+  
+  return tomorrow;
+}
+
+// Total days for the month of the given date, considering leap years
 int numberOfDays(struct date d) {
   int days;
   const int daysPerMonth[12] = { 31, 28, 31, 30, 31, 30,
@@ -62,10 +74,12 @@ int numberOfDays(struct date d) {
   return days;
 }
 
+// Finds if given year is a leap year
 bool isLeapYear(int year) {
   return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 }
 
+// Displays the given date to console
 void printDate(struct date d) {
   printf("%.2i/%.2i/%i\n", d.month, d.day, d.year);
 }
