@@ -1,6 +1,6 @@
 /*
 * Programming in C, 4th, Kochan
-* Program 8.3
+* Program 8.5
 * Created by @guti7 on 04/13/2018
 * 
 * Updates time by one second
