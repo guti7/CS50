@@ -11,6 +11,7 @@
 */
 
 #include <stdio.h>
+#include <stdbool.h>
 
 struct date {
   int month;
@@ -18,11 +19,21 @@ struct date {
   int year;
 };
 
+// Global variables
+// March 1, 1700 to February 28, 1800 is N + 2
+const struct date mar_01_1700 = { 3,  1, 1700 };
+// March 1, 1800 to February 28, 1900 is N + 1
+const struct date mar_01_1800 = { 3,  1, 1800 };
+// dates after March 1, 1900 is N
+const struct date mar_01_1900 = { 3,  1, 1900 };
+// anything on or before February 28, 1700 is N
+
 // Prototypes
 int elapsedDays(struct date startDate, struct date endDate);
 int calculateN(struct date d);
 int yearValue(int year, int month);
 int monthValue(int month);
+bool isEarlierDate(struct date d1, struct date d2);
 void printDate(struct date d);
 void printElapsedDays(struct date d1, struct date d2, int n);
 
@@ -41,6 +52,13 @@ int main(void) {
   n = elapsedDays(startDate, endDate);
   printElapsedDays(startDate, endDate, n);
   
+  printf("\nNew dates:\n");
+  startDate =  (struct date){ 3,  1, 1700 };
+  endDate   =  (struct date){ 3,  2, 1800 };
+  
+  n = elapsedDays(startDate, endDate);
+  printElapsedDays(startDate, endDate, n);
+  
   return 0;
 }
 
@@ -53,7 +71,20 @@ int elapsedDays(struct date startDate, struct date endDate) {
 // Calculate N for date
 int calculateN(struct date d) {
   // N = 1461 * f(year, month) / 4 + 153 * g(month) / 5 + day
-  return 1461 * yearValue(d.year, d.month) / 4 + 153 * monthValue(d.month) / 5 + d.day;
+  int n = 1461 * yearValue(d.year, d.month) / 4 + 153 * monthValue(d.month) / 5 + d.day;
+  
+  // TODO: off by one in some dates
+  if (isEarlierDate(d, mar_01_1700)) {
+    n += 0;
+  } else if (isEarlierDate(d, mar_01_1800)) {
+    n += 2;
+  } else if (isEarlierDate(d, mar_01_1900)) {
+    n += 1;
+  } else {
+    n += 0;
+  }
+  
+  return n;
 }
 
 // Year value = year - 1, if month <=2, year, otherwise
@@ -70,6 +101,11 @@ int monthValue(int month) {
     return month + 13;
   }
   return month + 1;
+}
+
+// Checks if d1 is and earlier date than the second date
+bool isEarlierDate(struct date d1, struct date d2) {
+  return d1.year <= d2.year && d1.month <= d2.month && d1.day < d2.day;
 }
 
 // Displays the given date to console
