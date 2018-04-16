@@ -6,18 +6,7 @@
 * Calculates the number of elapsed days between two dates.
 * Examples:
 *   July   2, 2015 & July     16, 2015 =  14 days
-*   August 8, 2014 & February 22, 2015 = 198 days
-*
-* Find total elapsed days = N2 - N1, where N2 is the most recent date,
-* 
-* Calculate N for each date:
-* N = 1461 * f(year, month) / 4 + 153 x g(month) / 5 + day
-* 
-* f(year, month) = year - 1,   if month <=2
-*                = year,       otherwise
-* 
-*       g(month) = month + 13, if month <=2
-*                = month +  1, otherwise
+*   August 8, 2004 & February 22, 2005 = 198 days 
 *
 */
 
@@ -43,15 +32,44 @@ int main(void) {
   struct date endDate   =  { 6, 16, 2015 };
   
   int n = elapsedDays(startDate, endDate);
+  printElapsedDays(startDate, endDate, n);
   
+  printf("\nNew dates:\n");
+  startDate =  (struct date){ 8,  8, 2004 };
+  endDate   =  (struct date){ 2, 22, 2005 };
+  
+  n = elapsedDays(startDate, endDate);
   printElapsedDays(startDate, endDate, n);
   
   return 0;
 }
 
 // Calculates the elapsed days between two dates
+// elapsed days = N2 - N1, where N2 is the most recent date,
 int elapsedDays(struct date startDate, struct date endDate) {
-  return 1;
+  return calculateN(endDate) - calculateN(startDate);
+}
+
+// Calculate N for date
+int calculateN(struct date d) {
+  // N = 1461 * f(year, month) / 4 + 153 * g(month) / 5 + day
+  return 1461 * yearValue(d.year, d.month) / 4 + 153 * monthValue(d.month) / 5 + d.day;
+}
+
+// Year value = year - 1, if month <=2, year, otherwise
+int yearValue(int year, int month) {
+  if (month <= 2) {
+    return year - 1;
+  }
+  return year;
+}
+
+// month value = month + 13, if month <=2, month +  1, otherwise
+int monthValue(int month) {
+  if (month <= 2) {
+    return month + 13;
+  }
+  return month + 1;
 }
 
 // Displays the given date to console
