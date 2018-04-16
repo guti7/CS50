@@ -34,8 +34,36 @@ int elapsedDays(struct date startDate, struct date endDate);
 int calculateN(struct date d);
 int yearValue(int year, int month);
 int monthValue(int month);
+void printDate(struct date d);
+void printElapsedDays(struct date d1, struct date d2, int n);
 
 int main(void) {
   
+  struct date startDate =  { 6,  2, 2015 };
+  struct date endDate   =  { 6, 16, 2015 };
+  
+  int n = elapsedDays(startDate, endDate);
+  
+  printElapsedDays(startDate, endDate, n);
+  
   return 0;
+}
+
+// Calculates the elapsed days between two dates
+int elapsedDays(struct date startDate, struct date endDate) {
+  return 1;
+}
+
+// Displays the given date to console
+void printDate(struct date d) {
+  printf("%.2i/%.2i/%i", d.month, d.day, d.year);
+}
+
+// Prints the elapsed days N
+void printElapsedDays(struct date d1, struct date d2, int n) {
+  printf("Elapsed days:\n  ");
+  printDate(d1);
+  printf(" to ");
+  printDate(d2);
+  printf(": %i days\n", n);
 }
