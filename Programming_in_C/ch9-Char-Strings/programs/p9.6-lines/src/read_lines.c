@@ -24,15 +24,16 @@ int main(void) {
   return 0;
 }
 
+// Read a line of text from the terminal
 void readLine(char buffer[]) {
-  int j = 0;
-  char ch = getchar();
+  int i = 0;
+  char ch;
   
-  while (ch != '\n') {
-    buffer[j] = ch;
+  do {
     ch = getchar();
-    j++;
-  }
+    buffer[i] = ch;
+    i++;
+  } while (ch != '\n');
   
-  buffer[j] = '\0';
+  buffer[--i] = '\0';
 }
