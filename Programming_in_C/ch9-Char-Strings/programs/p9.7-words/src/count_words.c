@@ -38,32 +38,45 @@ int countWords(const char string[]) {
   // Scan for the first occurance of alpha character, 
   // and considers all subsequent characters up to the first non-alphabetic
   // character as part of the same word. Repeats until the end of the string.
-  int wordCount = 0;
   
-  int i = 0;
-  char curr;
-  bool inWord;
+  int i, wordCount = 0;
+  bool inWord = false;
   
-  do {
-    curr = string[i];
-    if (isAlpha(curr)) {
-      inWord = true;
-      while(isAlpha(curr)) {
-        i++;
-        curr = string[i];
+  for (i = 0; string[i] != '\0'; i++) {
+    if (isAlpha(string[i])) {
+      if (!inWord) {
+        wordCount++;
+        inWord = true;
       }
-      wordCount++;
     } else {
-      i++;
-      curr = string[i];
+      inWord = false;
     }
-    inWord = false;
-  } while(curr != '\0');
+  }
    
   return wordCount;
+  
+  // char curr;
+  // i = 0;
+  // do {
+  //   curr = string[i];
+  //   if (isAlpha(curr)) {
+  //     inWord = true;
+  //     while(isAlpha(curr)) {
+  //       i++;
+  //       curr = string[i];
+  //     }
+  //     wordCount++;
+  //   } else {
+  //     i++;
+  //     curr = string[i];
+  //   }
+  //   inWord = false;
+  // } while(curr != '\0');
+  
+  // return wordCount;
 }
 
 // Checks for alphabet character
 bool isAlpha(const char c) {
-  return (c >= 65 && c <= 90) || (c >= 97 && c <= 122);
+  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 }
