@@ -10,11 +10,13 @@
 
 int main(void) {
   
-  char s1[81], s2[81], s3[81];
+  char s1[81], s2[10], s3[81];
   
   printf("Enter text:\n");
   
-  scanf("%s%s%s", s1, s2, s3);
+  // placing a number after % in the format string, tells `scanf` the max
+  // number of characters to read, then continues to read next char
+  scanf("%80s%9s%80s", s1, s2, s3);
   
   printf("\ns1 = %s\ns2 = %s\ns3 = %s\n", s1, s2, s3);
   
