@@ -39,32 +39,21 @@ int main(void) {
   printf("\"%s\" %s \"%s\"\n", strb, isEqual? "==":"!=", stra);
   isEqual = equalString(strb, "string");
   printf("\"%s\" %s \"%s\"\n", strb, isEqual? "==":"!=", "string");
+  isEqual = equalString(strb, "");
+  printf("\"%s\" %s \"%s\"\n", strb, isEqual? "==":"!=", "");
   
   
   return 0;
 }
 
+// Check for equality in passed strings, assumes valid input
 bool equalString(const char s1[], const char s2[]) {
-  
-  if (!s1 || !s2) {
-    return false;
-  }
-  
   int i = 0;
-  bool isMatched = true;
   
-  // Check each character until the end of either
-  while (s1[i] != '\0' && s2[i] != '\0') {
-    if (s1[i] != s2[i]) { // There is mismatch on characters
-      isMatched = false;
-      break;
-    }
+  while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0') {
     i++;
   }
   
-  if (s1[i] != '\0' || s2[i] != '\0') {
-    isMatched = false;
-  }
-  
-  return isMatched;
+  // both string index reached end at same time, then equal, otherwise false
+  return s1[i] == '\0' && s2[i] == '\0';
 }
