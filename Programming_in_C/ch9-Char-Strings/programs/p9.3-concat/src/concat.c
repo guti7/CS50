@@ -11,8 +11,8 @@
 void concat(char result[], const char st1[], const char st2[]);
 
 int main(void) {
-  const char s1[] = { "Test " };
-  const char s2[] = { "works." };
+  const char s1[] = "Test ";
+  const char s2[] = "works.";
   char s3[20];
   
   concat(s3, s1, s2);
