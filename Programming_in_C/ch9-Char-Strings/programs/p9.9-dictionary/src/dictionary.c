@@ -14,7 +14,7 @@ struct entry {
 };
 
 int lookup(const struct entry dictionary[], const char word[], const int size);
-bool equalString(const char s1[], const char s2[]);
+bool equalStrings(const char s1[], const char s2[]);
 
 int main(void) {
   
@@ -50,7 +50,7 @@ int lookup(const struct entry dictionary[], const char word[], const int size) {
   
   // iterate over dictionary and look for a match of word to an entry
   for (i = 0; i < size; i++) {
-    if (equalString(dictionary[i].word, word)) {
+    if (equalStrings(dictionary[i].word, word)) {
       entry = i;
       break;
     }
@@ -60,7 +60,7 @@ int lookup(const struct entry dictionary[], const char word[], const int size) {
 }
 
 // Check for equality in passed strings, assumes valid input
-bool equalString(const char s1[], const char s2[]) {
+bool equalStrings(const char s1[], const char s2[]) {
   int i = 0;
   
   while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0') {
