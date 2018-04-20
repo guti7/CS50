@@ -13,8 +13,10 @@ struct entry {
   char definition[50];
 };
 
-int lookup(const struct entry dictionary[], const char word[], const int size);
+int lookupIterative(const struct entry dictionary[], const char word[], const int size);
 bool equalStrings(const char s1[], const char s2[]);
+bool compareStrings(const char s1[], const char s2[]);
+int lookupBinary(const struct entry dictionary[], const char word[], const int size);
 
 int main(void) {
   
@@ -32,7 +34,7 @@ int main(void) {
     
   printf("Enter word to lookup: \n");
   scanf("%14s", word);
-  entry = lookup(dictionary, word, dictSize);
+  entry = lookupIterative(dictionary, word, dictSize);
   
   if (entry != -1) {
     printf("\n%s: %s\n", word, dictionary[entry].definition);
@@ -44,7 +46,8 @@ int main(void) {
 }
 
 // Searches for a word in dictionary, returns entry value or -1 if not found
-int lookup(const struct entry dictionary[], const char word[], const int size) {
+int lookupIterative(const struct entry dictionary[],
+                    const char word[], const int size) {
   
   int i, entry = -1;
   
@@ -68,4 +71,29 @@ bool equalStrings(const char s1[], const char s2[]) {
   }
   
   return s1[i] == s2[i]; // at end of strings, '\0'
+}
+
+// Searches for the word in dictionary of given size using binary search
+int lookUpBinary(const char dictionary[], const char word[], int size) {
+  
+  return -1;
+}
+
+// Determines lexicographical order of the first string compared to the second
+bool compareString(const char s1[], const char s2[]) {
+  int i = 0, order = 0;
+  
+  while (s1[i] != \'0') { // touch every char in s1
+    // if (s1[i] == s2[i]) {
+    //   continue;
+    // } else {
+    //   return s1[i] - s2[i];
+    // }
+    if (s1[i] != s2[i]) {
+      return si[i] - s2[i];
+    }
+    i++;
+  }
+  
+  return 0;
 }
