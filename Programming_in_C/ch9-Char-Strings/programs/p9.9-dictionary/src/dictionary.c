@@ -15,7 +15,7 @@ struct entry {
 
 int lookupIterative(const struct entry dictionary[], const char word[], const int size);
 bool equalStrings(const char s1[], const char s2[]);
-bool compareStrings(const char s1[], const char s2[]);
+int compareStrings(const char s1[], const char s2[]);
 int lookupBinary(const struct entry dictionary[], const char word[], const int size);
 
 int main(void) {
@@ -32,15 +32,22 @@ int main(void) {
       { "ajar",  "partially open" },
     };
     
-  printf("Enter word to lookup: \n");
-  scanf("%14s", word);
-  entry = lookupIterative(dictionary, word, dictSize);
+  // printf("Enter word to lookup: \n");
+  // scanf("%14s", word);
+  // entry = lookupIterative(dictionary, word, dictSize);
+  // 
+  // if (entry != -1) {
+  //   printf("\n%s: %s\n", word, dictionary[entry].definition);
+  // } else {
+  //   printf("%s: Not Found.\n", word);
+  // }
   
-  if (entry != -1) {
-    printf("\n%s: %s\n", word, dictionary[entry].definition);
-  } else {
-    printf("%s: Not Found.\n", word);
-  }
+  printf("compare strings:\n");
+  printf("%i\n", compareStrings("a", "a"));
+  printf("%i\n", compareStrings("a", "b"));
+  printf("%i\n", compareStrings("b", "a"));
+  printf("%i\n", compareStrings("abyss", "ajar"));
+  printf("%i\n", compareStrings("zanana", "apple"));
   
   return 0;
 }
@@ -80,20 +87,15 @@ int lookUpBinary(const char dictionary[], const char word[], int size) {
 }
 
 // Determines lexicographical order of the first string compared to the second
-bool compareString(const char s1[], const char s2[]) {
-  int i = 0, order = 0;
+int compareStrings(const char s1[], const char s2[]) {
+  int i = 0;
   
-  while (s1[i] != \'0') { // touch every char in s1
-    // if (s1[i] == s2[i]) {
-    //   continue;
-    // } else {
-    //   return s1[i] - s2[i];
-    // }
+  while (s1[i] != '\0' && s2[i] != '\0') { // touch every char in s1
     if (s1[i] != s2[i]) {
-      return si[i] - s2[i];
+      return s1[i] - s2[i];
     }
     i++;
   }
   
-  return 0;
+  return 0; // equal strings
 }
