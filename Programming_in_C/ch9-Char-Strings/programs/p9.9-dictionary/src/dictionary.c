@@ -31,25 +31,56 @@ int main(void) {
       { "agar",  "a jelly made from seaweed" },
       { "ajar",  "partially open" },
     };
-    
-  // printf("Enter word to lookup: \n");
-  // scanf("%14s", word);
-  // entry = lookupIterative(dictionary, word, dictSize);
-  // 
-  // if (entry != -1) {
-  //   printf("\n%s: %s\n", word, dictionary[entry].definition);
-  // } else {
-  //   printf("%s: Not Found.\n", word);
-  // }
   
-  printf("compare strings:\n");
-  printf("%i\n", compareStrings("a", "a"));
-  printf("%i\n", compareStrings("a", "b"));
-  printf("%i\n", compareStrings("b", "a"));
-  printf("%i\n", compareStrings("abyss", "ajar"));
-  printf("%i\n", compareStrings("zanana", "apple"));
+  printf("Enter word to lookup: \n");
+  scanf("%14s", word);
+  // entry = lookupIterative(dictionary, word, dictSize);
+  entry = lookupBinary(dictionary, word, dictSize);
+  
+  printf("entry: %i\n", entry);
+  if (entry != -1) {
+    printf("\n%s: %s\n", word, dictionary[entry].definition);
+  } else {
+    printf("%s: Not Found.\n", word);
+  
+  
+  
+  }
   
   return 0;
+}
+
+// Searches for the word in dictionary of given size using binary search
+int lookupBinary(const struct entry dictionary[], const char word[], int size) {
+  
+  int low = 0;
+  int high = size - 1;
+  int mid, result;
+  
+  while (low <= high) {
+    mid = (low + high) / 2;
+    result = compareStrings(dictionary[mid].word, word);
+    if (result == 0) {
+      return mid;
+    } else if (result > 0) {
+      high = mid - 1;
+    } else { // compare < 0
+      low = mid + 1;
+    }
+  }
+  
+  return -1;
+}
+
+// Determines lexicographical order of the first string compared to the second
+int compareStrings(const char s1[], const char s2[]) {
+  int i = 0;
+  
+  while ( s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0') {
+    i++;
+  }
+  
+  return s1[i] - s2[i];
 }
 
 // Searches for a word in dictionary, returns entry value or -1 if not found
@@ -78,24 +109,4 @@ bool equalStrings(const char s1[], const char s2[]) {
   }
   
   return s1[i] == s2[i]; // at end of strings, '\0'
-}
-
-// Searches for the word in dictionary of given size using binary search
-int lookUpBinary(const char dictionary[], const char word[], int size) {
-  
-  return -1;
-}
-
-// Determines lexicographical order of the first string compared to the second
-int compareStrings(const char s1[], const char s2[]) {
-  int i = 0;
-  
-  while (s1[i] != '\0' && s2[i] != '\0') { // touch every char in s1
-    if (s1[i] != s2[i]) {
-      return s1[i] - s2[i];
-    }
-    i++;
-  }
-  
-  return 0; // equal strings
 }
