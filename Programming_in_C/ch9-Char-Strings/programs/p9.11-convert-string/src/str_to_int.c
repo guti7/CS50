@@ -26,6 +26,9 @@ int main(void) {
   return 0;
 }
 
+// Convert a string to an integer
+// TODO: Handle negative numbers
+// TODO: Check if it contains valid digits before processing?
 int strToInt(const char string[]) {
   
   int i, result = 0;
